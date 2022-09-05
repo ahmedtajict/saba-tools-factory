@@ -6,7 +6,7 @@ import customer from '../../../assets/customer.png'
 const Summary = () => {
     return (
         <div className=''>
-            <div className="stats shadow grid grid-cols-1 lg:grid-cols-3 gap-5 mt-10 ">
+            <div className="stats shadow grid grid-cols-1 lg:grid-cols-3 gap-5 ">
 
                 <div className="stat">
                     <div className="stat-figure text-secondary">

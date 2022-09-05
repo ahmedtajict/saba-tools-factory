@@ -5,9 +5,9 @@ const Product = ({ product }) => {
 
     return (
 
-        <div class="card w-96 bg-base-100 shadow-xl">
-            <figure class="px-10 pt-10">
-                <img src={img} alt="Shoes" class="rounded-xl" />
+        <div className="card w-96 bg-base-100 shadow-xl">
+            <figure className="px-10 pt-10">
+                <img src={img} alt="Shoes" className="rounded-xl" />
             </figure>
             <div className="card-body items-center text-primary text-justify">
                 <h2 className="card-title font-bold text-2xl">{name}</h2>

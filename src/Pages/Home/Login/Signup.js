@@ -1,21 +1,20 @@
 import React from 'react';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../../Shared/Loading/Loading';
 import { Link } from 'react-router-dom';
 
+const Signup = () => {
 
-
-const Login = () => {
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [
-        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword,
         user,
         loading,
         error,
-    ] = useSignInWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth);
 
     let signInError;
 
@@ -33,14 +32,14 @@ const Login = () => {
 
     const onSubmit = data => {
         console.log(data);
-        signInWithEmailAndPassword(data.email, data.password)
+        createUserWithEmailAndPassword(data.email, data.password)
     }
 
     return (
         <div>
             <div className="hero min-h-screen bg-base-200">
-                <div className="hero-content flex-col lg:flex-row">
-                    <div className="text-center lg:text-left">
+                <div className="hero-content flex-col lg:flex-row-reverse">
+                    <div className="text-center ml-20 lg:text-left">
                         <h1 className="text-5xl font-bold"> SABA <span className='text-secondary'>TOOLS</span> FACTORY</h1>
                         <p className="py-6 font-bold ">High performance with high quality .</p>
                     </div>
@@ -48,6 +47,27 @@ const Login = () => {
                         <div className="card-body">
 
                             <form onSubmit={handleSubmit(onSubmit)}>
+
+
+                                <div className="form-control w-full max-w-xs">
+                                    <label className="label">
+                                        <span className="label-text">Name</span>
+                                    </label>
+                                    <input type="text"
+                                        placeholder="Your Name"
+                                        className="input input-bordered w-full max-w-xs"
+                                        {...register("name", {
+                                            required: {
+                                                value: true,
+                                                message: 'Name is Required'
+                                            }
+                                        })}
+                                    />
+                                    <label className="label">
+                                        {errors.name?.type === 'required' && <span className="label-text-alt text-red-500">{errors.name.message}</span>}
+
+                                    </label>
+                                </div>
 
 
                                 <div className="form-control w-full max-w-xs">
@@ -73,6 +93,7 @@ const Login = () => {
                                         {errors.email?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
                                     </label>
                                 </div>
+
 
                                 <div className="form-control w-full max-w-xs">
                                     <label className="label">
@@ -103,9 +124,9 @@ const Login = () => {
 
 
                                 {signInError}
-                                <input className='btn bg-primary w-full max-w-xs hover:bg-secondary hover:text-white hover:font-bold' type="submit" value='Login' />
+                                <input className='btn bg-primary w-full max-w-xs hover:bg-secondary hover:text-white hover:font-bold' type="submit" value='Sign Up' />
                             </form>
-                            <p><small>New to Saba Tools?  <Link className='text-green-500' to="/signup">Create New Account</Link></small></p>
+                            <p><small>Already have an Account?  <Link className='text-green-500' to="/login">Please Login</Link></small></p>
                             <div className="divider">OR</div>
                             <button
                                 onClick={() => signInWithGoogle()}
@@ -119,4 +140,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Signup;
